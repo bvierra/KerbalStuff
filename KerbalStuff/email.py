@@ -32,8 +32,8 @@ def send_confirmation(user, followMod=None):
                     pystache.render(f.read(), { 'user': user, "domain": _cfg("domain"), 'confirmation': user.confirmation })))
     message['X-MC-Important'] = "true"
     message['X-MC-PreserveRecipients'] = "false"
-    message['Subject'] = "Welcome to Kerbal Stuff!"
-    message['From'] = "support@kerbalstuff.com"
+    message['Subject'] = "Welcome to Planet RimWorld Mods!"
+    message['From'] = "donotreply@planetrimworld.com"
     message['To'] = user.email
     sendEmail(message,user.email)
 
@@ -45,8 +45,8 @@ def send_reset(user):
                 pystache.render(f.read(), { 'user': user, "domain": _cfg("domain"), 'confirmation': user.passwordReset })))
     message['X-MC-Important'] = "true"
     message['X-MC-PreserveRecipients'] = "false"
-    message['Subject'] = "Reset your password on Kerbal Stuff"
-    message['From'] = "support@kerbalstuff.com"
+    message['Subject'] = "Reset your password on Planet RimWorld Mods"
+    message['From'] = "donotreply@planetrimworld.com"
     message['To'] = user.email
     sendEmail(message,user.email)
 
@@ -59,8 +59,8 @@ def send_grant_notice(mod, user):
                 'mod': mod, 'url': url_for('mods.mod', id=mod.id, mod_name=mod.name) })))
     message['X-MC-Important'] = "true"
     message['X-MC-PreserveRecipients'] = "false"
-    message['Subject'] = "You've been asked to co-author a mod on Kerbal Stuff"
-    message['From'] = "support@kerbalstuff.com"
+    message['Subject'] = "You've been asked to co-author a mod on Planet RimWorld Mods"
+    message['From'] = "donotreply@planetrimworld.com"
     message['To'] = user.email
     sendEmail(message,user.email)
 
@@ -93,7 +93,7 @@ def send_update_notification_sync(mod, version, user):
             })))
     message['X-MC-PreserveRecipients'] = "false"
     message['Subject'] = user + " has just updated " + mod.name + "!"
-    message['From'] = "support@kerbalstuff.com"
+    message['From'] = "donotreply@planetrimworld.com"
     message['To'] = ";".join(targets)
     sendEmail(message,user.email)
 
@@ -120,8 +120,8 @@ def send_autoupdate_notification(mod):
                 'changelog': changelog
             })))
     message['X-MC-PreserveRecipients'] = "false"
-    message['Subject'] = mod.name + " is compatible with KSP " + mod.versions[0].ksp_version + "!"
-    message['From'] = "support@kerbalstuff.com"
+    message['Subject'] = mod.name + " is compatible with RimWorld " + mod.versions[0].ksp_version + "!"
+    message['From'] = "donotreply@planetrimworld.com"
     message['To'] = ";".join(targets)
     sendEmail(message,targets)
 
