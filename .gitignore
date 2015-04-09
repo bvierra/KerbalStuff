@@ -12,3 +12,4 @@ storage/
 nbproject/
 node_modules/
 pip-selfcheck.json
+static/
