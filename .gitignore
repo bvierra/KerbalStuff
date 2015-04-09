@@ -10,3 +10,5 @@ lib/
 storage/
 .idea/
 nbproject/
+node_modules/
+pip-selfcheck.json
