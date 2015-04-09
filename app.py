@@ -83,7 +83,7 @@ def prepare():
 @app.before_first_request
 def compile_first():
     pass
-    #prepare()
+    prepare()
 
 @app.before_request
 def compile_if_debug():
@@ -91,4 +91,5 @@ def compile_if_debug():
         prepare()
 
 if __name__ == '__main__':
+    print("Starting app with debug=true")
     app.run(host=_cfg("debug-host"), port=_cfgi('debug-port'), debug=True)
