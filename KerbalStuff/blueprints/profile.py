@@ -43,7 +43,7 @@ def profile(username):
         profile.redditUsername = request.form.get('reddit-username')
         profile.description = request.form.get('description')
         profile.twitterUsername = request.form.get('twitter')
-        profile.forumUsername = request.form.get('ksp-forum-user')
+        profile.forumUsername = request.form.get('rw-forum-user')
         result = getForumId(profile.forumUsername)
         if not result:
             profile.forumUsername = ''
