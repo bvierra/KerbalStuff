@@ -11,11 +11,18 @@ from KerbalStuff.database import db
 from KerbalStuff.objects import User
 from KerbalStuff.config import _cfg, _cfgi
 
+
+def sendEmail(message,emailto):
+    smtp = smtplib.SMTP(_cfg("smtp-host"), _cfgi("smtp-port"))
+    smtp.starttls()
+    smtp.ehlo()
+    smtp.login(_cfg("smtp-user"), _cfg("smtp-password"))
+    smtp.sendmail("donotreply@planetrimworld.com", [ emailto ], message.as_string())
+    smtp.quit()
+
 def send_confirmation(user, followMod=None):
     if _cfg("smtp-host") == "":
         return
-    smtp = smtplib.SMTP(_cfg("smtp-host"), _cfgi("smtp-port"))
-    smtp.login(_cfg("smtp-user"), _cfg("smtp-password"))
     with open("emails/confirm-account") as f:
         if followMod != None:
             message = MIMEText(pystache.render(f.read(), { 'user': user, "domain": _cfg("domain"),\
@@ -28,14 +35,11 @@ def send_confirmation(user, followMod=None):
     message['Subject'] = "Welcome to Kerbal Stuff!"
     message['From'] = "support@kerbalstuff.com"
     message['To'] = user.email
-    smtp.sendmail("support@kerbalstuff.com", [ user.email ], message.as_string())
-    smtp.quit()
+    sendEmail(message,user.email)
 
 def send_reset(user):
     if _cfg("smtp-host") == "":
         return
-    smtp = smtplib.SMTP(_cfg("smtp-host"), _cfgi("smtp-port"))
-    smtp.login(_cfg("smtp-user"), _cfg("smtp-password"))
     with open("emails/password-reset") as f:
         message = MIMEText(html.parser.HTMLParser().unescape(\
                 pystache.render(f.read(), { 'user': user, "domain": _cfg("domain"), 'confirmation': user.passwordReset })))
@@ -44,14 +48,11 @@ def send_reset(user):
     message['Subject'] = "Reset your password on Kerbal Stuff"
     message['From'] = "support@kerbalstuff.com"
     message['To'] = user.email
-    smtp.sendmail("support@kerbalstuff.com", [ user.email ], message.as_string())
-    smtp.quit()
+    sendEmail(message,user.email)
 
 def send_grant_notice(mod, user):
     if _cfg("smtp-host") == "":
         return
-    smtp = smtplib.SMTP(_cfg("smtp-host"), _cfgi("smtp-port"))
-    smtp.login(_cfg("smtp-user"), _cfg("smtp-password"))
     with open("emails/grant-notice") as f:
         message = MIMEText(html.parser.HTMLParser().unescape(\
                 pystache.render(f.read(), { 'user': user, "domain": _cfg("domain"),\
@@ -61,8 +62,7 @@ def send_grant_notice(mod, user):
     message['Subject'] = "You've been asked to co-author a mod on Kerbal Stuff"
     message['From'] = "support@kerbalstuff.com"
     message['To'] = user.email
-    smtp.sendmail("support@kerbalstuff.com", [ user.email ], message.as_string())
-    smtp.quit()
+    sendEmail(message,user.email)
 
 def send_update_notification(mod, version, user):
     if _cfg("smtp-host") == "":
@@ -81,8 +81,6 @@ def send_update_notification_sync(mod, version, user):
         targets.append(follower)
     if len(targets) == 0:
         return
-    smtp = smtplib.SMTP(_cfg("smtp-host"), _cfgi("smtp-port"))
-    smtp.login(_cfg("smtp-user"), _cfg("smtp-password"))
     with open("emails/mod-updated") as f:
         message = MIMEText(html.parser.HTMLParser().unescape(pystache.render(f.read(),
             {
@@ -97,8 +95,7 @@ def send_update_notification_sync(mod, version, user):
     message['Subject'] = user + " has just updated " + mod.name + "!"
     message['From'] = "support@kerbalstuff.com"
     message['To'] = ";".join(targets)
-    smtp.sendmail("support@kerbalstuff.com", targets, message.as_string())
-    smtp.quit()
+    sendEmail(message,user.email)
 
 def send_autoupdate_notification(mod):
     if _cfg("smtp-host") == "":
@@ -113,8 +110,6 @@ def send_autoupdate_notification(mod):
         targets.append(follower)
     if len(targets) == 0:
         return
-    smtp = smtplib.SMTP(_cfg("smtp-host"), _cfgi("smtp-port"))
-    smtp.login(_cfg("smtp-user"), _cfg("smtp-password"))
     with open("emails/mod-autoupdated") as f:
         message = MIMEText(html.parser.HTMLParser().unescape(pystache.render(f.read(),
             {
@@ -128,8 +123,7 @@ def send_autoupdate_notification(mod):
     message['Subject'] = mod.name + " is compatible with KSP " + mod.versions[0].ksp_version + "!"
     message['From'] = "support@kerbalstuff.com"
     message['To'] = ";".join(targets)
-    smtp.sendmail("support@kerbalstuff.com", targets, message.as_string())
-    smtp.quit()
+    sendEmail(message,targets)
 
 def send_bulk_email(users, subject, body):
     if _cfg("smtp-host") == "":
@@ -137,12 +131,9 @@ def send_bulk_email(users, subject, body):
     targets = list()
     for u in users:
         targets.append(u)
-    smtp = smtplib.SMTP(_cfg("smtp-host"), _cfgi("smtp-port"))
-    smtp.login(_cfg("smtp-user"), _cfg("smtp-password"))
     message = MIMEText(body)
     message['X-MC-PreserveRecipients'] = "false"
     message['Subject'] = subject
-    message['From'] = "support@kerbalstuff.com"
+    message['From'] = "donotreply@planetrimworld.com"
     message['To'] = ";".join(targets)
-    smtp.sendmail("support@kerbalstuff.com", targets, message.as_string())
-    smtp.quit()
+    sendEmail(message,targets)
