@@ -18,7 +18,7 @@
 <div class="header">
     <div class="vert-text">
         <h3>Create a new mod</h3>
-        <p>Thanks for helping make Kerbal Stuff more awesome!<br/>
+        <p>Thanks for helping make Planet RimWorld more awesome!<br/>
         Double check that your mod meets <a href="#" data-toggle="modal" data-target="#mod-guidelines">our guidelines</a>, please.</p>
     </div>
 </div>
@@ -60,16 +60,9 @@
             <div class="col-md-5 form-group">
                 <select id="mod-ksp-version" class="form-control">
                     {% for v in game_versions %}
-                    <option value="{{v.friendly_version}}" {% if loop.first %}selected{% endif %}>KSP {{v.friendly_version}}</option>
+                    <option value="{{v.friendly_version}}" {% if loop.first %}selected{% endif %}>RimWorld {{v.friendly_version}}</option>
                     {% endfor %}
                 </select>
-            </div>
-            <div class="col-md-2 form-group">
-                <label>
-                    <input type="checkbox" id="ckan" name="ckan" style="margin-top: 8px;" checked="checked"> Add mod to <a href="https://github.com/KSP-CKAN/CKAN">CKAN</a>
-                    <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="left"
-                        title="This makes it so that users can automate the installation of your mod. Your mod won't be added to CKAN until you publish it."></span>
-                </label>
             </div>
         </div>
         <button id="submit" class="btn btn-success btn-lg btn-block" style="margin: 20px auto;">
@@ -109,7 +102,7 @@
                 <h4 class="modal-title">What can I upload?</h4>
             </div>
             <div class="modal-body">
-                <p>Kerbal Stuff is a website for hosting mods. We have a couple of basic rules about what you can upload here:</p>
+                <p>Planet RimWorld Mods is a website for hosting mods. We have a couple of basic rules about what you can upload here:</p>
                 <ul>
                     <li>No craft files. If you didn't write code (or parts), it probably doesn't belong here.</li>
                     <li>Only upload mods you have the right to distribute. Check licensing!</li>
