@@ -2,10 +2,10 @@ import sys
 
 from KerbalStuff.config import _cfg, _cfgi
 from KerbalStuff.database import db, init_db
-from KerbalStuff.objects import User
+from KerbalStuff.objects import *
 from KerbalStuff.email import send_confirmation
 
-init_db()
+#init_db()
 
 if sys.argv[1] == 'delete_user':
     user = User.query.filter(User.username == sys.argv[2]).first()
@@ -24,6 +24,6 @@ elif sys.argv[1] == 'add_admin':
     else:
         user.admin = True
         user.confirmation = None
-        db.commit
+        db.commit()
         print("Success: %s is now an admin" % user.username)
         sys.exit()
