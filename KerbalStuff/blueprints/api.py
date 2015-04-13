@@ -55,10 +55,10 @@ def mod_info(mod):
         "url": url_for("mods.mod", id=mod.id, mod_name=mod.name)
     }
 
-def version_info(mod, version):
+def gameversion_info(mod, version):
     return {
         "friendly_version": version.friendly_version,
-        "ksp_version": version.ksp_version,
+        "game_version": version.ksp_version,
         "id": version.id,
         "download_path": url_for('mods.download', mod_id=mod.id,
                                  mod_name=mod.name,
@@ -66,18 +66,18 @@ def version_info(mod, version):
         "changelog": version.changelog
     }
 
-def kspversion_info(version):
+def gameversion_info(version):
     return {
         "id": version.id,
         "friendly_version": version.friendly_version
     }
 
-@api.route("/api/kspversions")
+@api.route("/api/gameversions")
 @json_output
-def kspversions_list():
+def gameversions_list():
     results = list()
     for v in GameVersion.query.order_by(desc(GameVersion.id)).all():
-        results.append(kspversion_info(v))
+        results.append(gameversion_info(v))
     return results
 
 @api.route("/api/typeahead/mod")
