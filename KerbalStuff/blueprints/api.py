@@ -531,7 +531,7 @@ def create_mod():
     name = request.form.get('name')
     short_description = request.form.get('short-description')
     version = request.form.get('version')
-    ksp_version = request.form.get('ksp-version')
+    ksp_version = request.form.get('game-version')
     license = request.form.get('license')
     ckan = request.form.get('ckan')
     zipball = request.files.get('zipball')
@@ -604,7 +604,7 @@ def update_mod(mod_id):
         return { 'error': True, 'reason': 'Not enought rights.' }, 401
     version = request.form.get('version')
     changelog = request.form.get('changelog')
-    ksp_version = request.form.get('ksp-version')
+    ksp_version = request.form.get('game-version')
     notify = request.form.get('notify-followers')
     zipball = request.files.get('zipball')
     if not version \

@@ -2,12 +2,7 @@
 
 Kerbal Stuff has a simple HTTP API that you can use to do various interesting
 things. Feel free to help make it better by submitting pull requests that update
-[api.py](https://github.com/SirCmpwn/KerbalStuff/blob/master/KerbalStuff/blueprints/api.py).
-
-## API Wrappers
-
-* [Ruby API Wrapper, by RockyTV](https://github.com/RockyTV/KerbalStuffGem)
-* [KerbalStuffWrapper, in C#, by toadicus.](http://forum.kerbalspaceprogram.com/threads/94891)
+[api.py](https://github.com/bvierra/KerbalStuff/blob/master/bvierra/blueprints/api.py).
 
 ## Basics
 
@@ -16,15 +11,11 @@ Submit all POSTS with the request body encoded as
 of choice probably handles that for you. All responses are JSON.
 
 Changes to this API will happen occasionally and warning will be offered via an
-email sent to all registered modders on the website and on the forum thread.
+email sent to all registered modders on the website when the changes break the old version
+syntax.
 
 Please set your user agent to something that describes who you are and how to
 contact the person operating the service.
-
-**Note on mod backgrounds**: The background image for each mod is hosted on
-https://mediacru.sh. The string returned in API requests is the path to that
-image relative to cdn.mediacru.sh - so if the path was "/example.png", the
-image can be found at "https://cdn.mediacru.sh/example.png".
 
 ### Errors
 
@@ -40,11 +31,11 @@ requests.
 
 **POST /api/login**
 
-Logs into Kerbal Stuff.
+Logs into Planet RimWorld Mods.
 
 *Curl*
 
-    curl -F username=SirCmpwn -F password=example -c ./cookies "https://kerbalstuff.com/api/login"
+    curl -F username=MyUser -F password=example -c ./cookies "http://mods.planetrimworld.com/api/login"
 
 *Parameters*
 
@@ -76,7 +67,7 @@ Gets mods sorted by selected conditions
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/browse"
+    curl "http://mods.planetrimworld.com/api/browse"
 
 *Parameters*
 
@@ -98,7 +89,7 @@ Gets mods sorted by selected conditions
           "versions": [
             {
               "changelog": "...",
-              "ksp_version": "0.24.2",
+              "game_version": "0.24.2",
               "download_path": "/mod/52/Ferram%20Aerospace%20Research/download/v0.14.1.1",
               "id": 151,
               "friendly_version": "v0.14.1.1"
@@ -122,7 +113,7 @@ Gets the newest mods on the site.
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/browse/new"
+    curl "http://mods.planetrimworld.com/api/browse/new"
 
 *Parameters*
 
@@ -161,7 +152,7 @@ Gets the latest featured mods on the site.
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/browse/featured"
+    curl "http://mods.planetrimworld.com/api/browse/featured"
 
 *Parameters*
 
@@ -199,7 +190,7 @@ Gets the most popular mods on the site.
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/browse/top"
+    curl "http://mods.planetrimworld.com/api/browse/top"
 
 *Parameters*
 
@@ -241,7 +232,7 @@ Searches the site for mods.
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/search/mod?query=FAR"
+    curl "http://mods.planetrimworld.com/api/search/mod?query=FAR"
 
 *Parameters*
 
@@ -279,7 +270,7 @@ Searches the site for public users.
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/search/user?query=sircmpwn"
+    curl "http://mods.planetrimworld.com/api/search/user?query=sircmpwn"
 
 *Parameters*
 
@@ -310,7 +301,7 @@ Returns information about a specific user.
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/user/Xaiier"
+    curl "http://mods.planetrimworld.com/api/user/Xaiier"
 
 *Example Response*
 
@@ -346,7 +337,7 @@ Returns information about a specific mod.
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/mod/21"
+    curl "http://mods.planetrimworld.com/api/mod/21"
 
 *Example Response*
 
@@ -380,7 +371,7 @@ Returns the latest version of a mod.
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/mod/21/latest"
+    curl "http://mods.planetrimworld.com/api/mod/21/latest"
 
 *Example Response*
 
@@ -402,10 +393,10 @@ Creates a new mod. **Requires authentication**.
         -F" name=Example Mod" \
         -F "short-description=this is your schort description" \
         -F "version=1.0" \
-        -F "ksp-version=0.24" \
+        -F "game-version=0.24" \
         -F "license=GPLv2" \
         -F "zipball=@ExampleMod.zip" \
-        "https://kerbalstuff.com/api/mod/create"
+        "http://mods.planetrimworld.com/api/mod/create"
 
 *Parameters*
 
@@ -413,9 +404,8 @@ Creates a new mod. **Requires authentication**.
 * `short-description`: Short description of your mod
 * `version`: The latest friendly version of your mod
 * `ksp-version`: The KSP version this is compatible with
-* `license`: Your mod's license
-* `ckan`: If "yes", automatically add your mod to the CKAN index
-* `zipball`: The actual mod's zip file
+* `license`: Your mods license
+* `zipball`: The actual mods zip file
 
 *Example Response*
 
@@ -440,25 +430,25 @@ Publishes an update to an existing mod. **Requires authentication**.
         -F "ksp-version=0.24" \
         -F "notify-followers=yes" \
         -F "zipball=@ExampleMod.zip" \
-        "https://kerbalstuff.com/api/mod/1234/update"
+        "http://mods.planetrimworld.com/api/mod/1234/update"
 
 *Parameters*
 
 * `version`: The friendly version number about to be created
 * `changelog`: Markdown changelog
-* `ksp-version`: The version of KSP this is compatible with
+* `ksp-version`: The version of RimWorld this is compatible with
 * `notify-followers`: If "yes", email followers about this update
-* `zipball`: The actual mod's zip file
+* `zipball`: The actual mods zip file
 
 ## KSPVersions
 
-**GET /api/kspversions**
+**GET /api/gmaeversions**
 
 This will list the configured KSPVersions on the KerbalStuff Site.
 
 *Curl*
 
-    curl "https://kerbalstuff.com/api/kspversions"
+    curl "http://mods.planetrimworld.com/api/gameversions"
 
 *Example Response*:
 
