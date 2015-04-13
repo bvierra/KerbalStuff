@@ -55,7 +55,7 @@ def mod_info(mod):
         "url": url_for("mods.mod", id=mod.id, mod_name=mod.name)
     }
 
-def gameversion_info(mod, version):
+def version_info(mod, version):
     return {
         "friendly_version": version.friendly_version,
         "game_version": version.ksp_version,
