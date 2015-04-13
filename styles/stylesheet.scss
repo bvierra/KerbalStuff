@@ -65,9 +65,17 @@ input[type="text"], input[type="password"], input[type="email"] {
 }
 
 footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-bottom:1px solid #0425a9;
+    background:#0425a9;
+
 }
+
+footer p {
+    color: #c1cfd9 !important;
+}
+
 
 .error-banner {
     height: 800px;

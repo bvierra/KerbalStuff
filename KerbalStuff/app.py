@@ -199,5 +199,6 @@ def inject():
         'first_visit': first_visit,
         'request': request,
         'locale': locale,
-        'url_for': url_for
+        'url_for': url_for,
+        'version': _cfg("version")
     }

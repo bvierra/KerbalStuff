@@ -3,6 +3,7 @@
 environment=dev
 
 [dev]
+version=0.1.0
 # Change this to the actual location of your site
 protocol=http
 domain=localhost:5000
