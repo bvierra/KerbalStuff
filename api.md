@@ -131,7 +131,7 @@ Gets the newest mods on the site.
         "versions": [
           {
             "changelog": "...",
-            "ksp_version": "0.24.2",
+            "game_version": "0.24.2",
             "download_path": "/mod/52/Ferram%20Aerospace%20Research/download/v0.14.1.1",
             "id": 151,
             "friendly_version": "v0.14.1.1"
@@ -170,7 +170,7 @@ Gets the latest featured mods on the site.
         "versions": [
           {
             "changelog": "...",
-            "ksp_version": "0.24.2",
+            "game_version": "0.24.2",
             "download_path": "/mod/52/Ferram%20Aerospace%20Research/download/v0.14.1.1",
             "id": 151,
             "friendly_version": "v0.14.1.1"
@@ -208,7 +208,7 @@ Gets the most popular mods on the site.
         "versions": [
           {
             "changelog": "...",
-            "ksp_version": "0.24.2",
+            "game_version": "0.24.2",
             "download_path": "/mod/52/Ferram%20Aerospace%20Research/download/v0.14.1.1",
             "id": 151,
             "friendly_version": "v0.14.1.1"
@@ -251,7 +251,7 @@ Searches the site for mods.
         "versions": [
           {
             "changelog": "...",
-            "ksp_version": "0.24.2",
+            "game_version": "0.24.2",
             "download_path": "/mod/52/Ferram%20Aerospace%20Research/download/v0.14.1.1",
             "id": 151,
             "friendly_version": "v0.14.1.1"
@@ -350,7 +350,7 @@ Returns information about a specific mod.
       "versions": [
         {
           "changelog": "...",
-          "ksp_version": "0.24.2",
+          "game_version": "0.24.2",
           "download_path": "/mod/21/Time%20Control/download/13.0",
           "id": 371,
           "friendly_version": "13.0"
@@ -377,7 +377,7 @@ Returns the latest version of a mod.
 
     {
       "changelog": "...",
-      "ksp_version": "0.24.2",
+      "game_version": "0.24.2",
       "download_path": "/mod/21/Time%20Control/download/13.0",
       "id": 371,
       "friendly_version": "13.0"
@@ -400,10 +400,10 @@ Creates a new mod. **Requires authentication**.
 
 *Parameters*
 
-* `name`: Your new mod's name
+* `name`: Your new mods name
 * `short-description`: Short description of your mod
 * `version`: The latest friendly version of your mod
-* `ksp-version`: The KSP version this is compatible with
+* `game-version`: The RimWorld version this is compatible with
 * `license`: Your mods license
 * `zipball`: The actual mods zip file
 
@@ -427,7 +427,7 @@ Publishes an update to an existing mod. **Requires authentication**.
     curl -c ./cookies \
         -F "version=1.0" \
         -F "changelog=this is your changelog" \
-        -F "ksp-version=0.24" \
+        -F "game-version=0.24" \
         -F "notify-followers=yes" \
         -F "zipball=@ExampleMod.zip" \
         "http://mods.planetrimworld.com/api/mod/1234/update"
@@ -436,7 +436,7 @@ Publishes an update to an existing mod. **Requires authentication**.
 
 * `version`: The friendly version number about to be created
 * `changelog`: Markdown changelog
-* `ksp-version`: The version of RimWorld this is compatible with
+* `game-version`: The version of RimWorld this is compatible with
 * `notify-followers`: If "yes", email followers about this update
 * `zipball`: The actual mods zip file
 
