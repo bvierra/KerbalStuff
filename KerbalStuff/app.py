@@ -37,6 +37,9 @@ from KerbalStuff.blueprints.lists import lists
 from KerbalStuff.blueprints.api import api
 
 app = Flask(__name__)
+app.version = "0.0.0"
+with open("VERSION", "r") as verfile:
+  app.version=verfile.read().replace('\n','')
 app.jinja_env.filters['firstparagraph'] = firstparagraph
 app.jinja_env.filters['remainingparagraphs'] = remainingparagraphs
 app.secret_key = _cfg("secret-key")
@@ -116,7 +119,7 @@ def profile_proxy(fragment):
 
 @app.route('/version')
 def version():
-    return Response(subprocess.check_output(["git", "log", "-1"]), mimetype="text/plain")
+    return app.version
 
 @app.route('/hook', methods=['POST'])
 def hook_publish():
@@ -200,5 +203,5 @@ def inject():
         'request': request,
         'locale': locale,
         'url_for': url_for,
-        'version': _cfg("version")
-    }
+        'version': app.version 
+}
